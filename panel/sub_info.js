@@ -10,7 +10,17 @@
 
   let used = info.download + info.upload;
   let total = info.total;
-  let content = [`用量：${bytesToSize(used)} / ${bytesToSize(total)}`];
+
+  let now = new Date();
+  let hour = now.getHours();
+  let minutes = now.getMinutes();
+  let seconds = now.getSeconds();
+  hour = hour > 9 ? hour : "0" + hour;
+  minutes = minutes > 9 ? minutes : "0" + minutes;
+  seconds = seconds > 9 ? seconds : "0" + seconds;
+  
+  let content = [`更新：${hour}:${minutes}:${seconds}`];
+  content.push(`用量：${bytesToSize(used)} / ${bytesToSize(total)}`);
 
   // 判断是否为不限时套餐
   if (!resetDayLeft && !expireDaysLeft) {
@@ -31,14 +41,8 @@
     }
   }
 
-  let now = new Date();
-  let hour = now.getHours();
-  let minutes = now.getMinutes();
-  hour = hour > 9 ? hour : "0" + hour;
-  minutes = minutes > 9 ? minutes : "0" + minutes;
-
   $done({
-    title: `${args.title}  「${hour}:${minutes}」`,
+    title: `${args.title}`,
     content: content.join("\n"),
   });
 })();
