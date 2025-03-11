@@ -27,7 +27,7 @@
     
     // 到期时间（日期）显示
     if (expireDaysLeft) {
-      content.push(`Expires: ${formatTime(args.expire || info.expire)}`);
+      content.push(`Expiration: ${formatTime(args.expire || info.expire)}`);
     }
   }
 
