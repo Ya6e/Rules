@@ -10,38 +10,35 @@
 
   let used = info.download + info.upload;
   let total = info.total;
+  let content = [`用量：${bytesToSize(used)} / ${bytesToSize(total)}`];
+
+  // 判断是否为不限时套餐
+  if (!resetDayLeft && !expireDaysLeft) {
+    let percentage = ((used / total) * 100).toFixed(1);
+    content.push(`提醒：流量已使用${percentage}%`);
+  } else {
+    if (resetDayLeft && expireDaysLeft) {
+      content.push(`提醒：${resetDayLeft}天后重置，${expireDaysLeft}天后到期`);
+    } else if (resetDayLeft) {
+      content.push(`提醒：流量将在${resetDayLeft}天后重置`);
+    } else if (expireDaysLeft) {
+      content.push(`提醒：套餐将在${expireDaysLeft}天后到期`);
+    }
+    
+    // 到期时间（日期）显示
+    if (expireDaysLeft) {
+      content.push(`到期：${formatTime(args.expire || info.expire)}`);
+    }
+  }
 
   let now = new Date();
   let hour = now.getHours();
   let minutes = now.getMinutes();
   hour = hour > 9 ? hour : "0" + hour;
   minutes = minutes > 9 ? minutes : "0" + minutes;
-  
-  let content = [`Update: ${hour}:${minutes}`];
-  content.push(`Usage: ${bytesToSize(used)} / ${bytesToSize(total)}`);
-
-  // 判断是否为不限时套餐
-  if (!resetDayLeft && !expireDaysLeft) {
-    let percentage = ((used / total) * 100).toFixed(1);
-    content.push(`Reminder: ${percentage}% of data used`);
-  } else {
-    if (resetDayLeft && expireDaysLeft) {
-      content.push(`Reminder: Data resets in ${resetDayLeft} days`);
-      content.push(`                 Plan expires in ${expireDaysLeft} days`);
-    } else if (resetDayLeft) {
-      content.push(`Reminder: Data will reset in ${resetDayLeft} days`);
-    } else if (expireDaysLeft) {
-      content.push(`Reminder: Plan expires in ${expireDaysLeft} days`);
-    }
-    
-    // 到期时间（日期）显示
-    if (expireDaysLeft) {
-      content.push(`Expiration: ${formatTime(args.expire || info.expire)}`);
-    }
-  }
 
   $done({
-    title: `${args.title}`,
+    title: `${args.title}  |  ${hour}:${minutes}`,
     content: content.join("\n"),
   });
 })();
@@ -72,7 +69,7 @@ function getUserInfo(url) {
         resolve(resp.headers[header]);
         return;
       }
-      reject("Response headers do not contain traffic information");
+      reject("链接响应头不带有流量信息");
     })
   );
 }
@@ -150,9 +147,8 @@ function formatTime(time) {
   if (time < 1000000000000) time *= 1000;
 
   let dateObj = new Date(time);
-  return dateObj.toLocaleDateString('en-US', { 
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric' 
-  });
-} 
+  let year = dateObj.getFullYear();
+  let month = dateObj.getMonth() + 1;
+  let day = dateObj.getDate();
+  return year + "年" + month + "月" + day + "日";
+}
