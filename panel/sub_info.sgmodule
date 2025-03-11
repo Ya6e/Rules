@@ -1,0 +1,12 @@
+#!name=面板-机场信息
+#!desc=流量信息/智能提醒/到期日期
+#!category=🌠 面板模块
+#!arguments=NAME:机场名字,URL:编码后的机场订阅,RESET_Day:重置日期
+#!arguments-desc=[参数设置]\n\n⓵ NAME: 可修改成你机场的名字。\n\n⓶ URL: 编码后的机场订阅。\n\n⓷ RESET_DAY: 流量每月重置的日期,如26号就写26,不设置则不显示流量重置日,仅显示到期日期。
+# 更新日期：2025.03.11
+
+[Panel]
+{{{NAME}}}=script-name={{{NAME}}},update-interval=7200
+
+[Script]
+{{{NAME}}}=type=generic,timeout=10,script-path=https://raw.githubusercontent.com/Ya6e/Rules/refs/heads/main/panel/sub_info.js,script-update-interval=0,argument=url={{{URL}}}&reset_day={{{RESET_Day}}}&title={{{NAME}}}
