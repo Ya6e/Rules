@@ -19,7 +19,7 @@
   minutes = minutes > 9 ? minutes : "0" + minutes;
   seconds = seconds > 9 ? seconds : "0" + seconds;
   
-  let content = [`更新：${hour}:${minutes}:${seconds}`];
+  let content = [`时间：${hour}:${minutes}:${seconds}`];
   content.push(`用量：${bytesToSize(used)} / ${bytesToSize(total)}`);
 
   // 判断是否为不限时套餐
