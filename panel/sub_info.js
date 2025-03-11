@@ -38,7 +38,7 @@
   minutes = minutes > 9 ? minutes : "0" + minutes;
 
   $done({
-    title: `${args.title} | ${hour}:${minutes}`,
+    title: `${args.title}    |    ${hour}:${minutes}`,
     content: content.join("\n"),
   });
 })();
