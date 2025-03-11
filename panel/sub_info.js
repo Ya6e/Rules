@@ -10,7 +10,7 @@
 
   let used = info.download + info.upload;
   let total = info.total;
-  let content = [`Usage:     ${bytesToSize(used)} / ${bytesToSize(total)}`];
+  let content = [`Usage: ${bytesToSize(used)} / ${bytesToSize(total)}`];
 
   // 判断是否为不限时套餐
   if (!resetDayLeft && !expireDaysLeft) {
@@ -18,7 +18,7 @@
     content.push(`Reminder: ${percentage}% of data used`);
   } else {
     if (resetDayLeft && expireDaysLeft) {
-      content.push(`Reminder:  Data will reset in ${resetDayLeft} days\n                    Plan expires in ${expireDaysLeft} days`);
+      content.push(`Reminder: Reset in ${resetDayLeft} days, Expires in ${expireDaysLeft} days`);
     } else if (resetDayLeft) {
       content.push(`Reminder: Data will reset in ${resetDayLeft} days`);
     } else if (expireDaysLeft) {
@@ -38,7 +38,7 @@
   minutes = minutes > 9 ? minutes : "0" + minutes;
 
   $done({
-    title: `${args.title}   updated at ${hour}:${minutes}`,
+    title: `${args.title}\nupdated at ${hour}:${minutes}`,
     content: content.join("\n"),
   });
 })();
