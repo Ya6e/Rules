@@ -18,7 +18,7 @@
     content.push(`提醒：流量已使用${percentage}%`);
   } else {
     if (resetDayLeft && expireDaysLeft) {
-      content.push(`提醒：${resetDayLeft}天后重置，${expireDaysLeft}天后到期`);
+      content.push(`提醒：${resetDayLeft}天后重置 / ${expireDaysLeft}天后到期`);
     } else if (resetDayLeft) {
       content.push(`提醒：流量将在${resetDayLeft}天后重置`);
     } else if (expireDaysLeft) {
@@ -38,7 +38,7 @@
   minutes = minutes > 9 ? minutes : "0" + minutes;
 
   $done({
-    title: `${args.title}  |  ${hour}:${minutes}`,
+    title: `${args.title}  『${hour}:${minutes}』`,
     content: content.join("\n"),
   });
 })();
