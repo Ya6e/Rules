@@ -1,0 +1,11 @@
+#!name=Flush DNS
+#!desc=快速清除Surge的DNS缓存
+#!category=🌠 面板模块
+#!arguments=TITLE:DNS Flush,ICON:wand.and.stars.inverse,COLOR:#3d3d5b,SERVER:true
+#!arguments-desc=[参数设置]\n\n⓵ TITLE: 自定义面板标题。\n\n⓶ ICON: 自定义面板图标,需为有效的SFSymbolName,如不设置则默认。\n\n⓷ COLOR: 自定义图标颜色,需为颜色的HEX编码。\n\n⓸ SERVER: 是否显示dns服务器
+
+[Panel]
+flushDNS = script-name=flushDNS,update-interval=-1
+
+[Script]
+flushDNS = type=generic,timeout=10,script-path=https://raw.githubusercontent.com/zZPiglet/Task/master/asset/flushDNS.js,argument=title={{{TITLE}}}&icon={{{ICON}}}&color={{{COLOR}}}&server={{{SERVER}}}
