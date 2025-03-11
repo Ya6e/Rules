@@ -18,8 +18,7 @@
     content.push(`Reminder: ${percentage}% of data used`);
   } else {
     if (resetDayLeft && expireDaysLeft) {
-      content.push(`Reminder: Data will reset in ${resetDayLeft} days`);
-      content.push(`          Plan expires in ${expireDaysLeft} days`);
+      content.push(`Reminder: Data will reset in ${resetDayLeft} days\n                  Plan expires in ${expireDaysLeft} days`);
     } else if (resetDayLeft) {
       content.push(`Reminder: Data will reset in ${resetDayLeft} days`);
     } else if (expireDaysLeft) {
