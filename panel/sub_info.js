@@ -10,7 +10,15 @@
 
   let used = info.download + info.upload;
   let total = info.total;
-  let content = [`Usage: ${bytesToSize(used)} / ${bytesToSize(total)}`];
+
+  let now = new Date();
+  let hour = now.getHours();
+  let minutes = now.getMinutes();
+  hour = hour > 9 ? hour : "0" + hour;
+  minutes = minutes > 9 ? minutes : "0" + minutes;
+  
+  let content = [`Update:\t${hour}:${minutes}`];
+  content.push(`Usage:\t${bytesToSize(used)} / ${bytesToSize(total)}`);
 
   // 判断是否为不限时套餐
   if (!resetDayLeft && !expireDaysLeft) {
@@ -18,27 +26,22 @@
     content.push(`Reminder: ${percentage}% of data used`);
   } else {
     if (resetDayLeft && expireDaysLeft) {
-      content.push(`Reminder: Reset in ${resetDayLeft} days, Expires in ${expireDaysLeft} days`);
+      content.push(`Reminder:\tData resets in ${resetDayLeft} days`);
+      content.push(`\tPlan expires in ${expireDaysLeft} days`);
     } else if (resetDayLeft) {
-      content.push(`Reminder: Data will reset in ${resetDayLeft} days`);
+      content.push(`Reminder:\tData will reset in ${resetDayLeft} days`);
     } else if (expireDaysLeft) {
-      content.push(`Reminder: Plan expires in ${expireDaysLeft} days`);
+      content.push(`Reminder:\tPlan expires in ${expireDaysLeft} days`);
     }
     
     // 到期时间（日期）显示
     if (expireDaysLeft) {
-      content.push(`Expiration: ${formatTime(args.expire || info.expire)}`);
+      content.push(`Expiration:\t${formatTime(args.expire || info.expire)}`);
     }
   }
 
-  let now = new Date();
-  let hour = now.getHours();
-  let minutes = now.getMinutes();
-  hour = hour > 9 ? hour : "0" + hour;
-  minutes = minutes > 9 ? minutes : "0" + minutes;
-
   $done({
-    title: `${args.title}\nupdated at ${hour}:${minutes}`,
+    title: `${args.title}`,
     content: content.join("\n"),
   });
 })();
