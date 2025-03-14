@@ -6,4 +6,4 @@ hostname = %APPEND% security.wechat.com, weixin110.qq.com
 
 [Script]
 
-解除微信链接限制 = type=http-response,pattern=^https\:\/\/(weixin110\.qq|security.wechat)\.com\/cgi-bin\/mmspamsupport-bin\/newredirectconfirmcgi\?,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/zZPiglet/Task/master/asset/UnblockURLinWeChat.js,argument={{{USE_CACHE}}}e=true&forceRedirect={{{FORCE_REDIRECT}}}
+解除微信链接限制 = type=http-response,pattern=^https\:\/\/(weixin110\.qq|security.wechat)\.com\/cgi-bin\/mmspamsupport-bin\/newredirectconfirmcgi\?,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/zZPiglet/Task/master/asset/UnblockURLinWeChat.js,argument=useCache={{{USE_CACHE}}}&forceRedirect={{{FORCE_REDIRECT}}}
